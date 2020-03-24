@@ -207,9 +207,10 @@ prompt_virtualenv() {
 prompt_status() {
   local symbols
   symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
+  [[ -n "$FPGA_TOOLING" ]] && symbols+="%{%F{yellow}%}$FPGA_TOOLING"
+  [[ $UID -eq 0 ]] && symbols+="%{%F{red}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
+  #[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
 
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
